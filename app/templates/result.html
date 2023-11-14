@@ -1,0 +1,23 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYI</title>
+</head>
+<body>
+    <h1>KYI</h1>
+
+    {% if error %}
+        <p>Error: {{ error }}</p>
+    {% else %}
+        <ul>
+            {% for label, result in results %}
+                <li>{{ label }}: {{ result.value }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</body>
+</html>
