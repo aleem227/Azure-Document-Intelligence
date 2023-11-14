@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request
 from rough import analyze_invoice  # Replace 'your_module' with the actual module where analyze_invoice is defined
 
 app = Flask(__name__)
@@ -8,13 +8,17 @@ def analyze_invoice_route():
     try:
         url = request.args.get('url')
         if not url:
-            return render_template('result.html', error='Missing URL parameter')
+            return 'Missing URL parameter'
 
         results = analyze_invoice(url)
 
-        return render_template('result.html', results=results)
+        response_str = ""
+        for label, result in results:
+            response_str += "{}: {}\n".format(label, result.value)
+
+        return response_str
     except Exception as e:
-        return render_template('result.html', error=str(e))
+        return str(e)
 
 if __name__ == '__main__':
     app.run(debug=True)
